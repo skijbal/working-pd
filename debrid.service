@@ -1,0 +1,41 @@
+#!/bin/bash
+
+[Unit]
+Description=tcrypt Daemon
+After=network-online.target multi-user.target
+
+[Service]
+Type=notify
+ExecStartPre=/bin/sleep 30s
+ExecStart=/path/to/rclone-linux mount debrid: /path/to/mount \     # change path
+--config=/path/to/rclone.conf \         # change path
+--log-file=/path/to/debrid.log \        # change path
+--log-level=INFO \
+--uid=1000 --gid=1000 \
+--allow-other \
+--allow-non-empty \
+--vfs-cache-mode=full \
+--dir-cache-time=9999h \
+--vfs-cache-max-age=9999h \
+--vfs-cache-max-size=300G \
+--cache-dir=/path/to/cache/dir \            # change path
+--vfs-read-chunk-size-limit=2048M \
+--vfs-read-chunk-size=64M \
+--buffer-size=16M \
+--rc \
+--rc-addr 192.168.1.14:5573 \         # change to your machine ip/port
+--rc-no-auth \
+--vfs-fast-fingerprint
+
+ExecStop=/bin/fusermount -uz /path/to/mount > /dev/null          # change path
+ExecStartPost=/path/to/rclone-linux rc vfs/refresh recursive=true --url 192.168.1.14:5573 _async=true             # change path as well as ip/port to match above
+TimeoutSec=60
+User=1000
+Group=1000
+Restart=on-abort
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
