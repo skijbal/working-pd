@@ -11,3 +11,4 @@ Current setup:
 - Jellyseer (docker)
 - rclone_rd beta (native install)
 - plex_db (docker)
+- Ubuntu Desktop 22.04
