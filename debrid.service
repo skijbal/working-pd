@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [Unit]
-Description=tcrypt Daemon
+Description=Debrid Daemon
 After=network-online.target multi-user.target
 
 [Service]
