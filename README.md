@@ -9,5 +9,5 @@ Right now I have filebot.sh run at 2am to allow it plenty of time to finish befo
 Current setup:
 - Jellyfin (docker)
 - Jellyseer (docker)
-- rclone_pd (native install)
+- rclone_rd beta (native install)
 - plex_db (docker)
